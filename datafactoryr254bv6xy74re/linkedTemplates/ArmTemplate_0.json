@@ -250,12 +250,18 @@
 				"description": "BLOB_TO_DL2",
 				"activities": [
 					{
-						"name": "BLOB_TO_DL2",
-						"description": "BLOB_TO_DL2",
-						"type": "Copy",
-						"dependsOn": [],
+						"name": "Get Metadata1",
+						"type": "GetMetadata",
+						"dependsOn": [
+							{
+								"activity": "Validation1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
-							"timeout": "0.12:00:00",
+							"timeout": "0.00:10:00",
 							"retry": 0,
 							"retryIntervalInSeconds": 30,
 							"secureOutput": false,
@@ -263,69 +269,133 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
+							"dataset": {
 								"referenceName": "DS_BLOB_TSV",
 								"type": "DatasetReference",
 								"parameters": {}
+							},
+							"fieldList": [
+								"columnCount",
+								"exists"
+							],
+							"storeSettings": {
+								"type": "AzureBlobStorageReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "DelimitedTextReadSettings"
 							}
-						],
-						"outputs": [
-							{
-								"referenceName": "DS_DL_GEN2_TGT",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
+						}
 					},
 					{
-						"name": "Fail Message",
-						"description": "Fail Message",
-						"type": "Fail",
+						"name": "Validation1",
+						"type": "Validation",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "DS_BLOB_TSV",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"timeout": "0.00:10:00",
+							"sleep": 10,
+							"minimumSize": 10
+						}
+					},
+					{
+						"name": "If Condition1",
+						"type": "IfCondition",
 						"dependsOn": [
 							{
-								"activity": "BLOB_TO_DL2",
+								"activity": "Get Metadata1",
 								"dependencyConditions": [
-									"Failed"
+									"Succeeded"
 								]
 							}
 						],
 						"userProperties": [],
 						"typeProperties": {
-							"message": "Hey Create the \"RAW\" container in target",
-							"errorCode": "RAJ001"
+							"expression": {
+								"value": "@equals(activity('Get Metadata1').output.columnCount,15)",
+								"type": "Expression"
+							},
+							"ifFalseActivities": [
+								{
+									"name": "Fail1",
+									"type": "Fail",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"message": "Column Count is not matching",
+										"errorCode": "COLCNT001"
+									}
+								}
+							],
+							"ifTrueActivities": [
+								{
+									"name": "BLOB_TO_DL2_copy1",
+									"description": "BLOB_TO_DL2",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "DelimitedTextSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "DelimitedTextWriteSettings",
+												"quoteAllText": true,
+												"fileExtension": ".txt"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "DS_BLOB_TSV",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "DS_DL_GEN2_TGT",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									]
+								}
+							]
 						}
 					}
 				],
