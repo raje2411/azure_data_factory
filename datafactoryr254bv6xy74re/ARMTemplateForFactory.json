@@ -353,7 +353,8 @@
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
-						"type": "AzureBlobFSLocation"
+						"type": "AzureBlobFSLocation",
+						"folderPath": "raw2rajesh"
 					},
 					"columnDelimiter": "\t",
 					"escapeChar": "\\",
