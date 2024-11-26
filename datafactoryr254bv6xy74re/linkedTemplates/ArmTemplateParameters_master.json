@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "datafactoryr254bv6xy74re"
+		},
+		"ArmtemplateStorageLinkedService_connectionString": {
+			"value": ""
+		},
+		"LS_BLOB_SRC_connectionString": {
+			"value": ""
+		},
+		"LS_DL_TGT_accountKey": {
+			"value": ""
+		},
+		"LS_DL_TGT_properties_typeProperties_url": {
+			"value": "https://dlrajesh.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
