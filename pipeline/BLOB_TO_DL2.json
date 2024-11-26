@@ -61,6 +61,24 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Fail Message",
+				"description": "Fail Message",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "BLOB_TO_DL2",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": "Hey Create the \"RAW\" container in target",
+					"errorCode": "RAJ001"
+				}
 			}
 		],
 		"annotations": []
