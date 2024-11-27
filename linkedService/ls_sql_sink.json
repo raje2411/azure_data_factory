@@ -1,0 +1,17 @@
+{
+	"name": "ls_sql_sink",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "server-rajesh1-sql.database.windows.net",
+			"database": "Rajesh_db",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "rajesh",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDA1RkVFQTk0LTYyNTctNEUxMy1BNjAxLTk3NDAxRTQ1RERDMF84YjZmMTQ0My01YTE5LTQyMDQtODNjYS02ODA5Nzk4NWYxODgiDQp9"
+		}
+	}
+}
