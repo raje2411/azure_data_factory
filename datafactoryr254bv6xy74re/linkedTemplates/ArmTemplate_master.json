@@ -19,9 +19,25 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_DL_TGT'"
 		},
+		"ls_sql_sink_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ls_sql_sink'"
+		},
 		"LS_DL_TGT_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://dlrajesh.dfs.core.windows.net/"
+		},
+		"ls_sql_sink_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "server-rajesh1-sql.database.windows.net"
+		},
+		"ls_sql_sink_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "Rajesh_db"
+		},
+		"ls_sql_sink_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "rajesh"
 		},
 		"containerUri": {
 			"type": "string",
@@ -59,8 +75,20 @@
 					"LS_DL_TGT_accountKey": {
 						"value": "[parameters('LS_DL_TGT_accountKey')]"
 					},
+					"ls_sql_sink_password": {
+						"value": "[parameters('ls_sql_sink_password')]"
+					},
 					"LS_DL_TGT_properties_typeProperties_url": {
 						"value": "[parameters('LS_DL_TGT_properties_typeProperties_url')]"
+					},
+					"ls_sql_sink_properties_typeProperties_server": {
+						"value": "[parameters('ls_sql_sink_properties_typeProperties_server')]"
+					},
+					"ls_sql_sink_properties_typeProperties_database": {
+						"value": "[parameters('ls_sql_sink_properties_typeProperties_database')]"
+					},
+					"ls_sql_sink_properties_typeProperties_userName": {
+						"value": "[parameters('ls_sql_sink_properties_typeProperties_userName')]"
 					}
 				}
 			},

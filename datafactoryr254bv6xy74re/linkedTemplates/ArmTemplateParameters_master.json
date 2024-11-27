@@ -14,8 +14,20 @@
 		"LS_DL_TGT_accountKey": {
 			"value": ""
 		},
+		"ls_sql_sink_password": {
+			"value": ""
+		},
 		"LS_DL_TGT_properties_typeProperties_url": {
 			"value": "https://dlrajesh.dfs.core.windows.net/"
+		},
+		"ls_sql_sink_properties_typeProperties_server": {
+			"value": "server-rajesh1-sql.database.windows.net"
+		},
+		"ls_sql_sink_properties_typeProperties_database": {
+			"value": "Rajesh_db"
+		},
+		"ls_sql_sink_properties_typeProperties_userName": {
+			"value": "rajesh"
 		},
 		"containerUri": {
 			"value": ""
